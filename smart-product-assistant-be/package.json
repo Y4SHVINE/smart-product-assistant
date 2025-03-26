@@ -13,7 +13,7 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
-    "netlify:build": "npm run build && npm run prisma:generate"
+    "netlify:build": "npx prisma generate && npm run build"
   },
   "keywords": [],
   "author": "",

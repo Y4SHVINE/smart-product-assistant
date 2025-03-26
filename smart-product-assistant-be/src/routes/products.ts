@@ -1,10 +1,9 @@
 import { Router, Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
 import { authenticateUser } from '../middleware/auth';
 import { openai } from '../config/openAPI';
+import { prisma } from '../lib/prisma';
 
 const router = Router();
-const prisma = new PrismaClient();
 
 // Get all products
 router.get('/',authenticateUser, async (req: Request, res: Response) => {
@@ -18,7 +17,7 @@ router.get('/',authenticateUser, async (req: Request, res: Response) => {
     return;
   } catch (error) {
     console.error('Error fetching products:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: error, status: 500 });
     return;
   }
 });
