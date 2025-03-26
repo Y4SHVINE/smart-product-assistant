@@ -30,15 +30,11 @@ app.use('/api/categories', categoryRoutes);
 // Convert Express app to serverless function
 const handler: Handler = async (event, context) => {
   try {
-    console.log('Attempting to connect to database...');
     await prisma.$connect();
-    console.log('Successfully connected to database');
     
     const result = await serverless(app)(event, context) as { statusCode?: number; body?: string; headers?: Record<string, string> };
     
-    console.log('Disconnecting from database...');
     await prisma.$disconnect();
-    console.log('Successfully disconnected from database');
     
     return {
       statusCode: result.statusCode || 200,
